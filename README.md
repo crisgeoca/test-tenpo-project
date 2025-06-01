@@ -13,7 +13,7 @@ Test project for the Tenpo company:
 ## Technologies
 
 * Java 21
-* Spring Boot 3.5.0
+* Spring Boot 3.2.3
 * Redis
 * PostgreSQL
 * Docker
