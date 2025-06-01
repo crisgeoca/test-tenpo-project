@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/tenpo_db
+      - SPRING_DATASOURCE_USERNAME=tenpo_user
+      - SPRING_DATASOURCE_PASSWORD=tenpo_pass
+      - SPRING_REDIS_HOST=redis
+    networks:
+      - tenpo-net
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: tenpo_db
+      POSTGRES_USER: tenpo_user
+      POSTGRES_PASSWORD: tenpo_pass
+    ports:
+      - "5432:5432"
+    networks:
+      - tenpo-net
+
+  redis:
+    image: redis:7.2
+    ports:
+      - "6379:6379"
+    networks:
+      - tenpo-net
+
+networks:
+  tenpo-net:
+    driver: bridge
